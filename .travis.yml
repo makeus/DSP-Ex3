@@ -1,0 +1,13 @@
+language: ruby
+rvm:
+- 2.2.4
+script:
+- bundle exec rspec -fd spec/
+- bundle exec rake konacha:run
+deploy:
+  provider: heroku
+  api_key:
+    secure: H7qctBNoYBjdEMDLxoc3BwAHeOlhy/Z2UdcR9Tnp3F6ijj8HLUGBNkEoeQOSoZuau82448/yARy7x7UkBej++PMHCXLV4594wwDwjfBBq0/2vfFuvWALgSoaE9RtVPcoDQA3xAnFWim6wT0/gEfyOauFprYWFuPG3OzL+FPaldy2okJJvbDL4/wL5gCYNEM0/OcvQEaqMVr7gl3FzD5V1ONYA7sUFdQ7LDTlS6bFrYkNjny4QpWp/DJqImlwmciesm2gmJO2AqpCAQVX8tjgDbfBeYageWKL+JoX1wNuPWt0atuTqKVt4l1aGE7ON3MPPbEYlKERfd7S94W1EpusCMj2JQlwP2jgYOBPULsVxd57D+I5FoUlY4GfQAq+vF2pVbmuJc6ZgXdgboLYUuW5nKnNMtJSrTno3ZZK06Ie8ZWr1mOMiDNfAjjVypbJjriyB8dXcrQNk7VEoLRu4tiu+YfOg5DUluT9wmpJSGintjWuutOlzLtHXwtRagJF9r3e5rJN4VIx9z64u5Zjf8DUNJ1uvyW3NmzQNkBt4DWRiVP7Mlk7HV+enQk0g2iNP3Fj2/pD0qvJpaeW7kwrqERY3rtZYVjOhBtMeGjdEw1tc2lQKnrsuViYeDSSMCq246lhw4iaiQcunxmhzcvafyQjX3bTxXALdbIsCcrIWfpnqBM=
+  app: DSP-Ex3
+  on:
+    repo: makeus/DSP-Ex3
