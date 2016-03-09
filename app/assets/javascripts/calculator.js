@@ -29,9 +29,7 @@
 
 	view.onSubmit(function(input) {
 		var parsed = parser.parse(input);
-		$.each(parsed, function(i, parsed) {
-			round(parsed);
-		});
+		round(parsed);
 	});
 
 

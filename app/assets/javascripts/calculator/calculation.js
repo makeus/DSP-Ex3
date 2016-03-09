@@ -15,7 +15,7 @@ var Calculation = (function($) {
 			}
 		}).then(function(data) {
 			return data.result;
-		})
+		});
 	};
 
 	return Calculation;

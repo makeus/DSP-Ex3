@@ -5,12 +5,13 @@ var Parser = (function() {
 	Parser.operators = ['+', '-', '*', '/'];
 
 	Parser.prototype.parse = function(input) {
-		var result = [];
 		var trimmed = input.split(' ').join('');
 
 		Parser.operators.forEach(function(operator){
 			trimmed = trimmed.split(operator).join(',' + operator + ',');
 		});
+
+		var operationObj;
 
 		var splitted = trimmed.split(',');
 		Parser.operators.forEach(function(operator) {
@@ -20,17 +21,16 @@ var Parser = (function() {
 					throw 'Invalid string';
 				}
 				var operation = splitted.slice(index-1, index + 2);
-				var operationObj = {
+				operationObj = {
 					left: operation[0],
 					right: operation[2],
 					operation: operation[1]
 				};
-				result.push(operationObj);
 				splitted[index + 1] = operationObj;
 				splitted.splice(index-1, 2);
 			}
 		});
-		return result;
+		return operationObj;
 	};
 
 	return Parser;

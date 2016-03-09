@@ -9,61 +9,43 @@ describe('Parser#parse', function() {
 	});
 
 	it('returns an empty array on empty input', function() {
-		parser.parse('').should.have.length(0);
+		expect(parser.parse('')).to.be.a('undefined');
 	});
 
 	it('returns a 1 dimensional on simple input', function() {
 		var result = parser.parse('1 + 2');
-		result.should.have.length(1);
-		result[0].left.should.equal('1');
-		result[0].right.should.equal('2');
-		result[0].operation.should.equal('+');
+		result.left.should.equal('1');
+		result.right.should.equal('2');
+		result.operation.should.equal('+');
 	});
 
 	it('returns a 2 dimensional array on two operation input', function() {
 		var result = parser.parse('1 + 2 * 3');
 
-		result.should.have.length(2);
-		result[0].left.should.equal('1');
-		result[0].right.should.equal('2');
-		result[0].operation.should.equal('+');
+		result.left.should.be.a('object');
+		result.left.left.should.equal('1');
+		result.left.right.should.equal('2');
+		result.left.operation.should.equal('+');
 
-		result[1].left.should.be.a('object');
-		result[1].left.left.should.equal('1');
-		result[1].left.right.should.equal('2');
-		result[1].left.operation.should.equal('+');
-
-		result[1].right.should.equal('3');
-		result[1].operation.should.equal('*');
+		result.right.should.equal('3');
+		result.operation.should.equal('*');
 	});
 
 	it('priorities plusses first', function() {
 		var result = parser.parse('1 * 2 + 3');
-		result.should.have.length(2);
-
-		result[0].left.should.equal('2');
-		result[0].right.should.equal('3');
-		result[0].operation.should.equal('+');
-		result[1].left.should.equal('1');
-		result[1].right.should.be.a('object');
-		result[1].operation.should.equal('*');
+		result.left.should.equal('1');
+		result.right.should.be.a('object');
+		result.operation.should.equal('*');
 	});
 
 	it('two of the same operators should work properly', function() {
 		var result = parser.parse('1+2+3');
-		console.log(result);
-
-		result.should.have.length(2);
-		result[0].left.should.equal('1');
-		result[0].right.should.equal('2');
-		result[0].operation.should.equal('+');
-
-		result[1].left.should.be.a('object');
-		result[1].left.left.should.equal('1');
-		result[1].left.right.should.equal('2');
-		result[1].left.operation.should.equal('+');
-		result[1].right.should.equal('3');
-		result[1].operation.should.equal('+');
+		result.left.should.be.a('object');
+		result.left.left.should.equal('1');
+		result.left.right.should.equal('2');
+		result.left.operation.should.equal('+');
+		result.right.should.equal('3');
+		result.operation.should.equal('+');
 	});
 
 
