@@ -9,7 +9,7 @@ var Parser = (function() {
 		var trimmed = input.split(' ').join('');
 
 		Parser.operators.forEach(function(operator){
-			trimmed = trimmed.replace(operator, ',' + operator + ',');
+			trimmed = trimmed.split(operator).join(',' + operator + ',');
 		});
 
 		var splitted = trimmed.split(',');
