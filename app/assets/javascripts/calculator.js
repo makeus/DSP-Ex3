@@ -3,7 +3,6 @@
 //= require calculator/view
 
 (function($) {
-
 	'use strict';
 
 	var parser = new Parser();
@@ -13,11 +12,11 @@
 	var round = function(parsedItem) {
 		var left = typeof parsedItem.left === 'object' ? 
 			round(parsedItem.left) : 
-			$.Deferred().resolve(parsedItem.left);
+			parsedItem.left
 
 		var right = typeof parsedItem.right === 'object' ? 
 			round(parsedItem.right) : 
-			$.Deferred().resolve(parsedItem.right);
+			parsedItem.right
 
 		return $.when(left, right, parsedItem.operation).then(function(left, right, operation) {
 			return calculation.calculate(left, operation, right).then(function(result) {
@@ -31,7 +30,5 @@
 		var parsed = parser.parse(input);
 		round(parsed);
 	});
-
-
 
 }(jQuery))

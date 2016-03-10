@@ -1,5 +1,7 @@
 class CalculatorController < ApplicationController
 
+  before_action :set_default_response_format, except: [:index]
+
   def index
   end
 
@@ -7,10 +9,8 @@ class CalculatorController < ApplicationController
     result = calculate
     respond_to do |format|
       if !result.nil?
-        format.html { render json: {result: result}}
         format.json { render json: {result: result}}
       else
-        format.json { render json: {status: 'failed'}, status: :unprocessable_entity}
         format.json { render json: {status: 'failed'}, status: :unprocessable_entity}
       end
     end
@@ -37,5 +37,9 @@ class CalculatorController < ApplicationController
     params[:arg2] = params[:arg2].to_f
 
     return params
+  end
+
+  def set_default_response_format
+    request.format = :json
   end
 end
