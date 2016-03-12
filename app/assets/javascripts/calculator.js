@@ -1,34 +1,38 @@
-//= require calculator/parser
-//= require calculator/calculation
-//= require calculator/view
-
-(function($) {
+var Calculator = (function($) {
 	'use strict';
 
-	var parser = new Parser();
-	var calculation = new Calculation();
-	var view = new CalculatorView();
+	function Calculator(parser, calculation) {
+		this.parser = parser;
+		this.calculation = calculation;
+	};
 
-	var round = function(parsedItem) {
+	Calculator.prototype.round = function(parsedItem, roundcallback) {
+		var $this = this;
+
 		var left = typeof parsedItem.left === 'object' ? 
-			round(parsedItem.left) : 
-			parsedItem.left
+		$this.round(parsedItem.left, roundcallback) : 
+		parsedItem.left
 
 		var right = typeof parsedItem.right === 'object' ? 
-			round(parsedItem.right) : 
-			parsedItem.right
+		$this.round(parsedItem.right, roundcallback) : 
+		parsedItem.right
 
 		return $.when(left, right, parsedItem.operation).then(function(left, right, operation) {
-			return calculation.calculate(left, operation, right).then(function(result) {
-				view.setResult(left, right, operation, result);
+			return $this.calculation.calculate(left, operation, right).then(function(result) {
+				if(roundcallback) {
+					roundcallback(left, right, operation, result);	
+				}
 				return result;
 			});
 		});
 	};
 
-	view.onSubmit(function(input) {
-		var parsed = parser.parse(input);
-		round(parsed);
-	});
+	Calculator.prototype.calculate = function(input, cb) {
+		var parsed = this.parser.parse(input);
+		return this.round(parsed, cb);
+	};
+
+	return Calculator;
+	
 
 }(jQuery))

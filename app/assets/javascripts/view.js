@@ -1,7 +1,7 @@
-var CalculatorView = (function($) {
+var View = (function($) {
 	'use strict';
 
-	function CalculatorView() {
+	function View() {
 		this.submitCallbacks = [];
 		var $this = this;
 		$('form').submit(function(event) {
@@ -12,17 +12,17 @@ var CalculatorView = (function($) {
 		});
 	}
 
-	CalculatorView.prototype.setResult = function(left, right, operator, result) {
+	View.prototype.setResult = function(left, right, operator, result) {
 		$('.results').append('<p>' + left + ' ' + operator + ' ' + right + ' = ' + result + '</p>');
 	};
 
-	CalculatorView.prototype.setGraph = function(element) {
+	View.prototype.setGraph = function(element) {
 		$('.results').append(element);
 	};
 
-	CalculatorView.prototype.onSubmit = function(callback) {
+	View.prototype.onSubmit = function(callback) {
 		this.submitCallbacks.push(callback);
 	};
 
-	return CalculatorView;
+	return View;
 }(jQuery));

@@ -8,12 +8,24 @@ var Parser = (function() {
 		var trimmed = input.split(' ').join('');
 
 		Parser.operators.forEach(function(operator){
-			trimmed = trimmed.split(operator).join(',' + operator + ',');
+			trimmed = trimmed.split(operator).join('#' + operator + '#');
 		});
 
-		var operationObj;
+		trimmed = trimmed.split('(#-#').join('-').split(')').join('')
+		trimmed = trimmed.split('#-##-#').join('#+#');
+		trimmed = trimmed.split('#+##-#').join('#-#');
 
-		var splitted = trimmed.split(',');
+		var operationObj;
+		var splitted = trimmed.split('#');
+		splitted = splitted.filter(function(val) {
+			return val !== '';
+		});
+
+		if(splitted[0] === '-') {
+			splitted[1] = '-' + splitted[1];
+			splitted = splitted.slice(1);
+		}
+
 		Parser.operators.forEach(function(operator) {
 			var index;
 			while((index = splitted.indexOf(operator)) !== -1) {

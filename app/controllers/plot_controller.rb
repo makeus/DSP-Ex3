@@ -8,11 +8,9 @@ class PlotController < ApplicationController
     chart = Gchart.new(
       :type => 'line',
       :size => '300x300',
-      :legend => ['sin(x)'],
-      :curveType => 'function',
-      :axis_with_labels => ['x', 'y'], 
-      :axis_range => [[-Math::PI, Math::PI], [-1,1]],
+      :curveType => 'function', 
       :data => data, 
+      :line_colors => 'FF0000',
       :filename => "tmp/chart.png")
 
     chart.file
@@ -22,5 +20,21 @@ class PlotController < ApplicationController
     response.headers['Content-Disposition'] = 'inline'
 
     render :text => open("tmp/chart.png", "rb").read
-  end 
+  end
+
+  def points
+    request.format = :json
+
+    data = (-Math::PI ... Math::PI).step(0.1).to_a.map {|x| 
+      [x, Math.sin(x)]
+    }
+
+    respond_to do |format|
+      if !data.nil?
+        format.json { render json: {result: data}}
+      else
+        format.json { render json: {status: 'failed'}, status: :unprocessable_entity}
+      end
+    end
+  end
 end

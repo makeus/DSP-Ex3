@@ -49,4 +49,33 @@ describe('Parser#parse', function() {
 	});
 
 
+	it('negative numbers should work properly', function() {
+		var result = parser.parse('1+(-2)');
+		result.left.should.equal('1');
+		result.operation.should.equal('+');
+		result.right.should.equal('-2');
+	});
+
+	it('double reductions should be counted as additions', function() {
+		var result = parser.parse('1--2');
+		result.left.should.equal('1');
+		result.operation.should.equal('+');
+		result.right.should.equal('2');
+	});
+
+	it('double simple operations should be handled', function() {
+		var result = parser.parse('1+-2');
+		result.left.should.equal('1');
+		result.operation.should.equal('-');
+		result.right.should.equal('2');
+	});
+
+	it('minus at the beginning should break the parsing', function() {
+		var result = parser.parse('-1+2');
+		result.left.should.equal('-1');
+		result.operation.should.equal('+');
+		result.right.should.equal('2');
+	});
+
+
 });

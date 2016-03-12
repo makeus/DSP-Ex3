@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe "calculator page" do
   it "should calculate the example properly", :js => true do
@@ -8,5 +8,13 @@ describe "calculator page" do
     expect(page).to have_content "1 + 2 = 3"
     expect(page).to have_content "3 * 3 = 9"
     expect(page).to have_content "9 / 4 = 2.25"
+  end
+
+  it "should accept sin(x) as search and show 3 graps", :js => true do
+    visit root_path
+    fill_in("input", with: "sin(x)")
+    click_button('Go')
+    expect(page).to have_css("img[src*='/plot']")
+    expect(page).to have_css("canvas")
   end
 end
