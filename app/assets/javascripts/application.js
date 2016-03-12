@@ -5,6 +5,7 @@
 
 //= require calculator/parser
 //= require calculator/calculation
+//= require calculator/cache
 //= require calculator
 
 //= require sin
@@ -12,11 +13,11 @@
 //= require plot/plotpoints
 //= require plot
 
-(function(View, Calculator, Plot, Parser) {
+(function(View, Calculator, Plot, Parser, Cache) {
 	'use strict';
 
 	var view = new View();
-	var calculator = new Calculator(new Parser(), new Calculation());
+	var calculator = new Calculator(new Parser(), new Calculation(), new Cache());
 	var plot = new Plot(new Plotdraw(), new Plotpoints(new Sin(calculator)));
 
 	view.onSubmit(function(input) {
@@ -36,4 +37,8 @@
 		}
 	});
 
-}(View, Calculator, Plot, Parser));
+	view.onSimplifyClick(function(input) {
+		view.setInput(calculator.simplify(input))
+	});
+
+}(View, Calculator, Plot, Parser, Cache));

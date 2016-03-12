@@ -11,6 +11,10 @@ var Plotdraw = (function($) {
 		var canvas = $('<canvas width="300" height="300">');
 		var ctx=canvas.get(0).getContext("2d");
 
+		if(!data.length) {
+			return canvas;
+		}
+
 		ctx.beginPath();
 		ctx.strokeStyle="#FF0000";
 		var startingpoint = graphPointsToCanvasCoordinates(data[0][0], data[0][1]);
