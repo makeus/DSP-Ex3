@@ -1,5 +1,11 @@
 //= require calculator/parser
 
+/**
+ * Mathias Keus
+ * 013882396
+ * https://github.com/makeus/DSP-Ex3 
+ */
+
 'use strict';
 
 describe('Parser#parse', function() {

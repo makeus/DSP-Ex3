@@ -1,3 +1,6 @@
+# Mathias Keus, 013882396
+# https://github.com/makeus/DSP-Ex3
+
 class CalculatorController < ApplicationController
 
   before_action :set_default_response_format, except: [:index]

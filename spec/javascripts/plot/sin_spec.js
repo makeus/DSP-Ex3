@@ -1,12 +1,14 @@
 //= require jquery
-
 //= require calculator/parser
 //= require calculator/cache
 //= require calculator
-
 //= require sin
 
-
+/**
+ * Mathias Keus
+ * 013882396
+ * https://github.com/makeus/DSP-Ex3 
+ */
 
 function Calculation() {}
 

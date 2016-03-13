@@ -13,8 +13,19 @@
 //= require plot/plotpoints
 //= require plot
 
+
+/**
+ * Mathias Keus
+ * 013882396
+ * https://github.com/makeus/DSP-Ex3 
+ */
+
+/**
+ * View and calculation managing
+ */
 (function(View, Calculator, Plot, Parser, Cache) {
 	'use strict';
+
 
 	var view = new View();
 	var cache = new Cache(3000);

@@ -1,3 +1,6 @@
+# Mathias Keus, 013882396
+# https://github.com/makeus/DSP-Ex3
+
 require "rails_helper"
 
 describe "calculator page" do

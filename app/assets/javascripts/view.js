@@ -1,6 +1,15 @@
+/**
+ * @author Mathias Keus, 013882396
+ * https://github.com/makeus/DSP-Ex3 
+ */
+ 
 var View = (function($) {
 	'use strict';
 
+	/**
+	 * Controls the view
+	 * @constructor
+     */
 	function View() {
 		this.submitCallbacks = [];
 		this.simplifyCallbacks = [];
@@ -20,7 +29,7 @@ var View = (function($) {
 			});
 		});
 
-		$('.cache-size').change(function(event) {
+		$('.cache-size').change(function() {
 			$.each($this.cacheSizeCallbacks, function(i, cb) {
 				cb($('.cache-size').val());
 			});
@@ -70,7 +79,7 @@ var View = (function($) {
 			$('.results-container').removeClass('loading');
 			clearInterval(this.timer);
 		}
-	}
+	};
 
 	return View;
 }(jQuery));
