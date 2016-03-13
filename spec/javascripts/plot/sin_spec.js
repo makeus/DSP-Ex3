@@ -1,6 +1,7 @@
 //= require jquery
 
 //= require calculator/parser
+//= require calculator/cache
 //= require calculator
 
 //= require sin
@@ -17,7 +18,7 @@ Calculation.prototype.calculate = function(left, operation, right) {
 'use strict';
 
 describe('sin', function() {
-	var sin = new Sin(new Calculator(new Parser(), new Calculation()));
+	var sin = new Sin(new Calculator(new Parser(), new Calculation(), new Cache(0)));
 	describe('should return values with minium 1% accuracy', function() {
 		it('case 0.1', function(done) {
 			sin.calculate(0.1).then(function(result) {
