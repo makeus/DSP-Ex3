@@ -28,8 +28,8 @@ var Calculator = (function($) {
 			}
 
 			return $this.calculation.calculate(left, operation, right).then(function(result) {
+				$this.cache.set(left, right, operation, result);
 				if(roundcallback) {
-					$this.cache.set(left, right, operation, result);
 					roundcallback(left, right, operation, result);	
 				}
 				return result;
@@ -47,12 +47,12 @@ var Calculator = (function($) {
 
 	Calculator.prototype._simplifyParsed = function(parsedItem) {
 		var left = typeof parsedItem.left === 'object' ? 
-		this._simplifyParsed(parsedItem.left) : 
-		parsedItem.left
+			this._simplifyParsed(parsedItem.left) : 
+			parsedItem.left;
 
 		var right = typeof parsedItem.right === 'object' ? 
-		this._simplifyParsed(parsedItem.right) : 
-		parsedItem.right
+			this._simplifyParsed(parsedItem.right) : 
+			parsedItem.right
 
 		var cached = this.cache.get(left, right, parsedItem.operation);
 		if(cached) {
@@ -60,6 +60,13 @@ var Calculator = (function($) {
 		}
 		return '' + left + parsedItem.operation + right;
 	};
+
+	Calculator.prototype.simplifyAll = function(input) {
+		var parsed = this.parser.parse(input);
+		if(parsed) {
+			return 
+		}
+	}
 
 	Calculator.prototype.simplify = function(input) {
 		var parsed = this.parser.parse(input);

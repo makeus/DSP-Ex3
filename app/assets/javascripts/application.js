@@ -17,10 +17,12 @@
 	'use strict';
 
 	var view = new View();
-	var calculator = new Calculator(new Parser(), new Calculation(), new Cache());
+	var cache = new Cache(20);
+	var calculator = new Calculator(new Parser(), new Calculation(), cache);
 	var plot = new Plot(new Plotdraw(), new Plotpoints(new Sin(calculator)));
 
 	view.onSubmit(function(input) {
+		view.clearResults();
 		switch(input) {
 			case 'sin(x)': {
 				plot.plot(input, function(graphElement) {
@@ -39,6 +41,10 @@
 
 	view.onSimplifyClick(function(input) {
 		view.setInput(calculator.simplify(input))
+	});
+
+	view.onCacheSizeChange(function(size) {
+		cache.setSize(size);
 	});
 
 }(View, Calculator, Plot, Parser, Cache));

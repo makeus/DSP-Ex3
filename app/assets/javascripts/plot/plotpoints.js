@@ -38,7 +38,7 @@ var Plotpoints = (function($) {
 			return points.sort(function(a,b) {
 				return a[0] - b[0];
 			});
-		})
+		});
 	};
 
 	return Plotpoints;

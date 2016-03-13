@@ -7,6 +7,9 @@ var Cache = (function($) {
 	};
 
 	Cache.prototype.set = function(left, right, operation, result) {
+		left = parseFloat(left);
+		right = parseFloat(right);
+		result = parseFloat(result);
 		this.queue.push({
 			left: left,
 			right: right,
@@ -20,15 +23,19 @@ var Cache = (function($) {
 	};
 
 	Cache.prototype.getResult = function(result) {
+		result = parseFloat(result);
 		var res =  $.grep(this.queue, function(op){ 
 			return op.result == result; 
 		});
 		if(res.length) {
+			console.log('cache found');
 			return res[0];
 		}
 	};
 
 	Cache.prototype.get = function(left, right, operation) {
+		left = parseFloat(left);
+		right = parseFloat(right);
 		var res = $.grep(this.queue, function(op){ 
 			return op.left === left &&
 				op.right === right &&
@@ -36,6 +43,7 @@ var Cache = (function($) {
 		});
 
 		if(res.length) {
+			console.log('cache found');
 			return res[0];
 		}
 	}

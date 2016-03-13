@@ -15,7 +15,6 @@ var Parser = (function() {
 		trimmed = trimmed.split('#-##-#').join('#+#');
 		trimmed = trimmed.split('#+##-#').join('#-#');
 
-		var operationObj;
 		var splitted = trimmed.split('#');
 		splitted = splitted.filter(function(val) {
 			return val !== '';
@@ -26,6 +25,7 @@ var Parser = (function() {
 			splitted = splitted.slice(1);
 		}
 
+		var operationObj;
 		Parser.operators.forEach(function(operator) {
 			var index;
 			while((index = splitted.indexOf(operator)) !== -1) {

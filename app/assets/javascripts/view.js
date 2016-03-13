@@ -4,6 +4,7 @@ var View = (function($) {
 	function View() {
 		this.submitCallbacks = [];
 		this.simplifyCallbacks = [];
+		this.cacheSizeCallbacks = [];
 		var $this = this;
 
 		$('form').submit(function(event) {
@@ -18,7 +19,17 @@ var View = (function($) {
 				cb($('form input#input').val());
 			});
 		});
+
+		$('.cache-size').change(function(event) {
+			$.each($this.cacheSizeCallbacks, function(i, cb) {
+				cb($('.cache-size').val());
+			});
+		});
 	}
+
+	View.prototype.clearResults = function() {
+		$('.results').empty();
+	};
 
 	View.prototype.setInput = function(val) {
 		$('form input#input').val(val);
@@ -38,6 +49,10 @@ var View = (function($) {
 
 	View.prototype.onSimplifyClick = function(callback) {
 		this.simplifyCallbacks.push(callback);
+	};
+
+	View.prototype.onCacheSizeChange = function(callback) {
+		this.cacheSizeCallbacks.push(callback);
 	};
 
 	return View;
