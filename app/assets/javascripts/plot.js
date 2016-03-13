@@ -9,12 +9,16 @@ var Plot = (function($) {
 	Plot.prototype.plot = function(input, callback) {
 		var $this = this;
 		var createPlot = function(data) {
-			callback($this.draw.plot(data));
 		};
 
-		this.points.plotLocal().then(createPlot);
-		this.points.plotServer().then(createPlot);
-		callback($('<img src="/plot"/>'));
+		callback($('<img src="/plot"/>'), 'server');
+		
+		this.points.plotLocal().then(function(data) {
+			callback($this.draw.plot(data), 'local');
+		});
+		return this.points.plotServer().then(function(data) {
+			callback($this.draw.plot(data), 'coop');
+		});
 	};
 
 	return Plot;

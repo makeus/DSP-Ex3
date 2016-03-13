@@ -28,7 +28,6 @@ var Cache = (function($) {
 			return op.result == result; 
 		});
 		if(res.length) {
-			console.log('cache found');
 			return res[0];
 		}
 	};
@@ -43,7 +42,6 @@ var Cache = (function($) {
 		});
 
 		if(res.length) {
-			console.log('cache found');
 			return res[0];
 		}
 	}

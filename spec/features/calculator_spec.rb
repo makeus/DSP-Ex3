@@ -24,6 +24,6 @@ describe "calculator page" do
     click_button("Go");
     fill_in("input", with: "1 + 2 * 3 / 4")
     click_link("simplify")
-    find_field("input").value.should eq "2.25"
+    expect(find_field("input").value).to eq "2.25"
   end
 end
